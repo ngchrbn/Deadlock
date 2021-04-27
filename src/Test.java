@@ -9,7 +9,7 @@ public class Test {
                 {0, 0, 2}} ;
 
         int [][]max = new int[][] { {7, 5, 3},
-                {3, 2, 2},
+                {7, 2, 2},
                 {9, 0, 2},
                 {2, 2, 2},
                 {4, 3, 3}};
@@ -20,7 +20,7 @@ public class Test {
         banker.isSafe();
         System.out.println();
         banker.snapshot();
-        int []request = new int[]{1, 0, 2};
+        int []request = new int[]{1, 2, 2};
         banker.request("P1", request);
         banker.snapshot();
     }
