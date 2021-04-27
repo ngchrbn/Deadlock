@@ -179,7 +179,7 @@ public class Banker {
     }
 
     /**
-     * Get a process's index from a process name
+     * Get a process's index from a given process name
      * @param processName process's name
      * @return int index value
      */
@@ -254,6 +254,38 @@ public class Banker {
         }
         else {
             System.out.println("The Process name is not found!");
+        }
+    }
+
+    /**
+     * First check if the name exists, if found, get its index.
+     * After it checks if all its release values <= its allocation values;
+     * If yes, then subtract this release resources from allocated resources for
+     * a given process. Otherwise, resources are not released.
+     * @param processName Process's name
+     * @param release An array containing the release values
+     */
+    public void release(String processName, int []release) {
+        boolean noRelease = false;
+        if(isNameFound(processName)) {
+            int processIndex = getProcessIndex(processName);
+            for(int i=0; i<nresource; ++i) {
+                if(release[i] > alloc[processIndex][i]) {
+                    noRelease = true;
+                    break;
+                }
+            }
+            if(noRelease) {
+                System.out.printf("%nProcess %s resources can't be released!%n",
+                        processName);
+            }
+            else {
+                for (int i=0; i<nresource; ++i) {
+                    alloc[processIndex][i] -= release[i];
+                }
+                processes.get(processIndex).updateAllocation(alloc[processIndex]);
+                System.out.printf("%nProcess %s resources released.%n", processName);
+            }
         }
     }
 }
