@@ -53,10 +53,12 @@ public class Main {
     private static void menu(int nResource, Banker banker) {
         Scanner input = new Scanner(System.in);
         System.out.println("\n1. Request. \n2. Release \n3. Quit");
+        System.out.print("Your choice: ");
         int choice = input.nextInt();
         while (choice != 1 && choice != 2 && choice != 3) {
             System.out.println("Wrong Choice. Try Again");
             System.out.println("1. Request. \n2. Release \n3. Quit");
+            System.out.print("Your choice: ");
             choice = input.nextInt();
         }
 
@@ -73,7 +75,16 @@ public class Main {
             menu(nResource, banker);
         }
         else if (choice == 2) {
-            System.out.println("In development");
+            int []release = new int[nResource]; // Contains values for the request
+            System.out.print("Enter the Process Name (ex. P0): ");
+            String processName = input.next();
+            for (int i=0; i<nResource; ++i) {
+                System.out.printf("Enter value for Resource %s: ", Character.toString(65+i));
+                release[i] = input.nextInt();
+            }
+            banker.release(processName, release);
+            banker.snapshot();
+            menu(nResource, banker);
         }
         else {
             System.exit(0);
